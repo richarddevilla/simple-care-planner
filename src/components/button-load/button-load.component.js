@@ -31,17 +31,22 @@ const LoadButton = ({ loadStateAction }) => {
 
     const handleRetrieveSavedData = async event => {
         // retrieve a collection
-        const data = await firestore.collection('state').where('user', '==', auth.currentUser.uid).get();
-        const tempData = []
-        data.docs.map(doc =>
-            tempData.push(doc.data().payload.name)
-        )
-        setDataList(tempData)
-        setOpen(true);
+        if (auth.currentUser != null) {
+            const data = await firestore.collection('state').where('user', '==', auth.currentUser.uid).get();
+            const tempData = []
+            data.docs.map(doc =>
+                tempData.push(doc.data().payload.name)
+            )
+            setDataList(tempData)
+            setOpen(true);
+        } else {
+            setOpen(false);
+        }
+
     }
 
     const handleChange = (e) => {
-            setData(e.target.value)
+        setData(e.target.value)
 
     }
 
@@ -58,7 +63,6 @@ const LoadButton = ({ loadStateAction }) => {
                 onClick={handleRetrieveSavedData}
                 startIcon={<GetAppIcon />}
                 fullWidth
-                disabled={auth.currentUser? false:true}
             >
                 Load
             </Button>

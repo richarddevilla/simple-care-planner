@@ -10,15 +10,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { storeState, auth } from '../../firebase/firebase.utils';
 import {connect} from 'react-redux'
 
-const SaveButton = ({state, currentUser}) => {
+const SaveButton = ({state}) => {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
     const [saveName, setSaveName] = React.useState('');
 
 
     const handleClickOpen = () => {
-        setOpen(true);
-        
+        if (auth.currentUser!=null) {
+            setOpen(true);
+        } else {
+            setOpen(false);
+        }
     };
 
     const handleClose = () => {
@@ -54,7 +57,6 @@ const SaveButton = ({state, currentUser}) => {
                 startIcon={<SaveIcon />}
                 onClick={handleClickOpen}
                 fullWidth
-                disabled={auth.currentUser? false:true}
             >
                 Save
             </Button>
@@ -73,6 +75,7 @@ const SaveButton = ({state, currentUser}) => {
                         value={saveName}
                         onChange={handleChange}
                         fullWidth
+                        
                     />
                 </DialogContent>
                 <DialogActions>
