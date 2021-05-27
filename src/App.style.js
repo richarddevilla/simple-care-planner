@@ -9,9 +9,14 @@ const useStyles = () => ({
   root: {
     flexGrow: 1,
   },
+  header: {
+    background: 'whitesmoke',
+    color: '#264653'
+  },
   siteColor: {
     background: '#264653',
-    color: 'whitesmoke'
+    color: 'whitesmoke',
+    fontWeight: 'bold'
   },
   paperContainer: {
     minWidth: '300px',

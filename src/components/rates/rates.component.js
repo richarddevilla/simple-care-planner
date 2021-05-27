@@ -27,38 +27,32 @@ const Rates = ({ currentPrices, editPricing }) => {
         editPricing(e.target.id, e.target.value)
     }
     return (
-        <Grid item className={classes.paperContainer}>
-            <Paper className={classes.paper} elevation={5} >
-                <Grid item container alignItems='center' justify='center'>
-
-                    {rateList.map(day => (
-                        <Grid item xs={12} md={4} key={day.id}>
-                            <Grid item container spacing={1} alignItems="flex-end" justify='center'>
-                                <Grid item>
-                                    <AttachMoneyRoundedIcon fontSize="small" color='disabled' />
-                                </Grid>
-                                <Grid item>
-                                    <TextField
-                                        InputLabelProps={{ shrink: true }}
-                                        value={currentPrices[day.id]}
-                                        type='number'
-                                        id={day.id}
-                                        onChange={handlePricingEdit}
-                                        fontSize="large"
-                                        inputProps={{ min: 0, max: 1000 }}
-                                        label={day.name}
-                                        disabled={currentPrices.isFixedPrice && day.id.replace(/[0-9]/, '') !== 'custom' ? true : false}
-                                    />
-                                </Grid>
-                            </Grid>
+        <Grid item container alignItems='center' justify='center'>
+            {rateList.map(day => (
+                <Grid item xs={12} md={4} key={day.id}>
+                    <Grid item container spacing={1} alignItems="flex-end" justify='center'>
+                        <Grid item>
+                            <AttachMoneyRoundedIcon fontSize="small" color='disabled' />
                         </Grid>
-                    )
-                    )}
-
-
+                        <Grid item>
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                value={currentPrices[day.id]}
+                                type='number'
+                                id={day.id}
+                                onChange={handlePricingEdit}
+                                fontSize="large"
+                                inputProps={{ min: 0, max: 1000 }}
+                                label={day.name}
+                                disabled={currentPrices.isFixedPrice && day.id.replace(/[0-9]/, '') !== 'custom' ? true : false}
+                            />
+                        </Grid>
+                    </Grid>
                 </Grid>
-            </Paper>
+            )
+            )}
         </Grid>
+
     )
 }
 

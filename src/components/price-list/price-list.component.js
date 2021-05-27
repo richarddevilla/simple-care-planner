@@ -13,17 +13,14 @@ export const PriceList = ({ priceLists, choosenPriceList, pickPricing }) => {
     }
 
     return (
-        <Grid item className={classes.paperContainer}>
-            <Paper className={classes.paper} elevation={5}>
-                <Grid item container spacing={1} justify='center' alignItems="center">
+                <Grid item container spacing={1} justify='center' alignItems="stretch">
                     <Grid item xs={12} md={5}>
-
                         <TextField
                             select
-                            label="Data list"
+                            label="Price List"
                             value={choosenPriceList.id}
                             onChange={handleSelect}
-                            helperText="Please select data to load"
+                            fullWidth
                         >
                             {priceLists.map((option) => (
                                 <MenuItem key={option.id} value={option.id}>
@@ -33,8 +30,6 @@ export const PriceList = ({ priceLists, choosenPriceList, pickPricing }) => {
                         </TextField>
                     </Grid>
                 </Grid>
-            </Paper>
-        </Grid>
     )
 }
 

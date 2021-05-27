@@ -58,6 +58,7 @@ const LoadButton = ({ loadStateAction }) => {
                 onClick={handleRetrieveSavedData}
                 startIcon={<GetAppIcon />}
                 fullWidth
+                disabled={auth.currentUser? false:true}
             >
                 Load
             </Button>

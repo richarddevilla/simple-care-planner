@@ -6,9 +6,11 @@ import {
     TableHead,
     TableRow,
     Table,
-    TableCell
+    TableCell,
+    Typography,
+    Box
 } from '@material-ui/core'
-import useStyles from '../header/header.style'
+import useStyles from '../funding-details/funding-details.style'
 import { connect } from 'react-redux'
 
 const FundingDetails = ({ suggestedWeeklyCost,
@@ -22,8 +24,9 @@ const FundingDetails = ({ suggestedWeeklyCost,
         <Grid item xs={12} md={12}>
             <Grid item container spacing={1} direction='column' alignItems="stretch" justify='center'>
                 <Grid item>
-                    <TableContainer >
-                        <Table aria-label="simple table">
+                    <Typography className={classes.siteColor} variant='h5'><Box pl={4}>Set Up Services</Box></Typography>
+                    <TableContainer>
+                        <Table  aria-label="simple table" size='small'>
                             <TableHead>
                                 <TableRow>
                                     <TableCell></TableCell>

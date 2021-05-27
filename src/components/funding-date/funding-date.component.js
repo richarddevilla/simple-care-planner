@@ -21,6 +21,7 @@ const FundingDate = ({ fundingEndDate, fundedDays, fundingStartDate, editDate })
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            fullWidth
                         />
                     </Grid>
                 </Grid>
@@ -38,6 +39,7 @@ const FundingDate = ({ fundingEndDate, fundedDays, fundingStartDate, editDate })
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            fullWidth
                         />
                     </Grid>
                 </Grid>
@@ -50,6 +52,7 @@ const FundingDate = ({ fundingEndDate, fundedDays, fundingStartDate, editDate })
                             type="text"
                             value={fundedDays}
                             disabled
+                            fullWidth
                         />
                     </Grid>
                 </Grid>

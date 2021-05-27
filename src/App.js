@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Paper } from '@material-ui/core'
+import { Box, Grid, Paper, Typography } from '@material-ui/core'
 
 import Header from './components/header/header.component'
 import PriceList from './components/price-list/price-list.component'
@@ -10,7 +10,6 @@ import Rates from './components/rates/rates.component'
 import ButtonContainer from './components/button-container/button-container.component'
 import Visit from './components/visit/visit.component';
 import Login from './components/navigation/navigation.component';
-import FundingDate from './components/funding-date/funding-date.component';
 import FundingDetails from './components/funding-details/funding-details.component';
 
 import { addVisit } from './actions/actionCreators'
@@ -56,53 +55,36 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.app}>
-        <Grid container className={classes.siteColor} justify='center' direction='column' alignItems="center">
+        <Grid container className={classes.header} justify='center' direction='column' alignItems="center">
           <Header />
           <Login currentUser={this.state.currentUser} />
         </Grid>
-
         <Grid container justify='center' alignItems="center" direction='column'>
           <Funding />
           <Grid item className={classes.paperContainer}>
+            <Paper className={classes.paper} elevation={5} >
+            <Typography className={classes.siteColor} variant='h5'><Box pl={4} mb={2}>Choose Pricing</Box></Typography>
+              <Box pb={2}>
+                <PriceList />
+              </Box>
+              <Box pb={2}>
+                <Rates />
+              </Box>
+            </Paper>
+          </Grid>
+          
+          <Grid item className={classes.paperContainer}>
             <Paper className={classes.paper} elevation={5}>
+
               <Grid item container spacing={1} justify='center' alignItems="center">
-                <FundingDate />
                 <FundingDetails />
+                <ButtonContainer />
+                <Visit />
               </Grid>
             </Paper>
           </Grid>
-          <PriceList />
-          <Rates />
-          <ButtonContainer />
-          <Visit />
+          
         </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {/* 
-        <Card className="my-card">
-          <Login currentUser={this.state.currentUser} />
-          <Funding />
-          <PriceLists />
-          <Button variant="secondary" onClick={this.handleAddVisit}>
-            <FaPlus /> Add Service
-          </Button>
-          <hr />
-          <Visit />
-        </Card> */}
       </div >
     );
   }

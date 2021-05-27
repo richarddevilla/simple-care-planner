@@ -8,5 +8,10 @@ const useStyles = makeStyles((theme) => ({
     padding: '20px',
     margin: '10px',
   },
+  siteColor: {
+    background: '#264653',
+    color: 'whitesmoke',
+    fontWeight: 'bold'
+  },
 }));
 export default useStyles
