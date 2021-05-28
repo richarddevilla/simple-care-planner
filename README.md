@@ -6,4 +6,4 @@
 - Get a forecast of you spending
 - Save your entries for future access.
 
-## (Go to the site)[https://richarddevilla.github.io/simple-care-planner/]
+(Go to the site)[https://richarddevilla.github.io/simple-care-planner/]
