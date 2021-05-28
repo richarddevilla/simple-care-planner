@@ -1,5 +1,9 @@
 # simple-care-planner
-
 https://richarddevilla.github.io/simple-care-planner/
 
-Simple Care Planner is an app that aims to help Australia's NDIS participants maximise their funding by giving them information on how much their specific care needs would cost and how much hours they can get from their funding based on the different rates that apply to their care needs. 
+### Simple Care Planner is an app that aims to help Australia's NDIS participants maximise their funding.
+
+## Features:
+- Know your suggested weekly hours or cost of care base on your funding and plan date
+- Get a forecast of you spending
+- Save your entries for future access.
