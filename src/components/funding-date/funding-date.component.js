@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, TextField } from '@material-ui/core'
+
 import { editDate } from '../../actions/actionCreators'
 import { dateToCalendar } from '../../utilities/utilities'
+import { selectFundedDays } from '../funding-date/funding-date.selector'
+
 const FundingDate = ({ fundingEndDate, fundedDays, fundingStartDate, editDate }) => {
     const handleDateChange = (e) => {
-         editDate(e.target.name, e.target.value)
+        editDate(e.target.name, e.target.value)
     }
     return (
         <React.Fragment>
@@ -65,7 +68,7 @@ const mapStateToProps = (state) => {
     return {
         fundingStartDate: state.fundingStartDate,
         fundingEndDate: state.fundingEndDate,
-        fundedDays: ((state.fundingEndDate - state.fundingStartDate) / 86400000).toFixed(0)
+        fundedDays: selectFundedDays(state)
     }
 }
 

@@ -11,7 +11,8 @@ const useStyles = () => ({
   },
   header: {
     background: 'whitesmoke',
-    color: '#264653'
+    color: '#264653',
+    fontWeight: 'bold'
   },
   siteColor: {
     background: '#264653',

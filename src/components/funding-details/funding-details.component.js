@@ -10,10 +10,22 @@ import {
     Typography,
     Box
 } from '@material-ui/core'
-import useStyles from '../funding-details/funding-details.style'
 import { connect } from 'react-redux'
 
-const FundingDetails = ({ suggestedWeeklyCost,
+import useStyles from '../funding-details/funding-details.style'
+import { 
+    selectFundedDays,
+    selectSuggestWeeklyHours,
+    selectSuggestedWeeklyCost,
+    selectAllocatedCost,
+    selectAllocatedHours,
+    selectTotalCost,
+    selectTotalHours
+} from '../funding-details/funding-details.selector'
+
+const FundingDetails = ({ 
+    suggestedWeeklyCost,
+    suggestedWeeklyHours,
     currentPrices,
     allocatedHours,
     allocatedCost,
@@ -37,7 +49,7 @@ const FundingDetails = ({ suggestedWeeklyCost,
                             <TableBody>
                                 <TableRow>
                                     <TableCell component="th" scope="row">Suggested Weekly</TableCell>
-                                    <TableCell align="left">{(suggestedWeeklyCost / currentPrices.morning).toFixed(2)}</TableCell>
+                                    <TableCell align="left">{suggestedWeeklyHours}</TableCell>
                                     <TableCell align="left">${suggestedWeeklyCost}</TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -64,14 +76,13 @@ const mapStateToProps = (state) => {
         fundingStartDate: state.fundingStartDate,
         fundingEndDate: state.fundingEndDate,
         fundingMoney: state.fundingMoney,
-        fundedDays: ((state.fundingEndDate - state.fundingStartDate) / 86400000).toFixed(0),
-        suggestedWeeklyCost: (state.fundingMoney /
-            ((state.fundingEndDate - state.fundingStartDate) /
-                86400000) * 7).toFixed(2),
-        allocatedHours: (state.visits.reduce((totalHour, visit) => totalHour + +visit.choosenHours, 0)).toFixed(2),
-        allocatedCost: (state.visits.reduce((totalCost, visit) => totalCost + (+visit.choosenHours * state.currentPrices[visit.choosenTimeframe.id]), 0)).toFixed(2),
-        totalHours: (state.visits.reduce((totalHour, visit) => totalHour + +visit.choosenHours, 0) * ((state.fundingEndDate - state.fundingStartDate) / 86400000 / 7)).toFixed(2),
-        totalCost: ((state.visits.reduce((totalCost, visit) => totalCost + (+visit.choosenHours * state.currentPrices[visit.choosenTimeframe.id]), 0)) * ((state.fundingEndDate - state.fundingStartDate) / 86400000 / 7)).toFixed(2)
+        fundedDays: selectFundedDays(state),
+        suggestedWeeklyCost: selectSuggestedWeeklyCost(state),
+        suggestedWeeklyHours: selectSuggestWeeklyHours(state),
+        allocatedHours: selectAllocatedHours(state),
+        allocatedCost: selectAllocatedCost(state),
+        totalHours: selectTotalHours(state),
+        totalCost: selectTotalCost(state)
     }
 }
 
