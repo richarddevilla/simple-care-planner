@@ -9,18 +9,24 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { storeState, auth } from '../../firebase/firebase.utils';
 import {connect} from 'react-redux'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const SaveButton = ({state}) => {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
     const [saveName, setSaveName] = React.useState('');
+    const [alert, setAlert] = React.useState({ error: false, message: '', severity: 'info' });
 
+    const handleAlertClose = (event, reason) => {
+        setAlert({ ...alert,error: false}, setAlert({...alert, message:'', severity:'info'}));
+    };
 
     const handleClickOpen = () => {
         if (auth.currentUser!=null) {
             setOpen(true);
         } else {
-            setOpen(false);
+            setAlert({ error: true, message: 'Please login to save your data', severity: 'error' });
         }
     };
 
@@ -87,6 +93,20 @@ const SaveButton = ({state}) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar
+                open={alert.error}
+                autoHideDuration={3000}
+                onClose={handleAlertClose}
+            >
+                <MuiAlert
+                    onClose={handleAlertClose}
+                    elevation={6}
+                    variant="filled"
+                    severity={alert.severity}
+                >
+                    {alert.message}
+                </MuiAlert>
+            </Snackbar>
         </React.Fragment>
     )
 }

@@ -11,6 +11,17 @@ import { editPricing } from '../../actions/actionCreators'
 
 const Rates = ({ currentPrices, editPricing }) => {
     const classes = useStyles();
+    const [alert, setAlert] = React.useState({
+        'morning': { error: false, message: '' },
+        'evening': { error: false, message: '' },
+        'night': { error: false, message: '' },
+        'saturday': { error: false, message: '' },
+        'sunday': { error: false, message: '' },
+        'publicHoliday': { error: false, message: '' },
+        'custom1': { error: false, message: '' },
+        'custom2': { error: false, message: '' },
+        'custom3': { error: false, message: '' }
+    })
 
     const rateList = [
         { name: 'Morning', id: 'morning' },
@@ -24,7 +35,13 @@ const Rates = ({ currentPrices, editPricing }) => {
         { name: 'Custom #3', id: 'custom3' },
     ]
     const handlePricingEdit = (e) => {
-        editPricing(e.target.id, e.target.value)
+        if (e.target.value < 10000 && e.target.value > -10000) {
+            editPricing(e.target.id, e.target.value)
+            setAlert({...alert, [e.target.id]:{ error: false, message: '' }})
+        } else {
+            setAlert({...alert, [e.target.id]:{ error: true, message: 'Rate should be between -9999 to 9999' }})
+        }
+
     }
     return (
         <Grid item container alignItems='center' justify='center'>
@@ -42,9 +59,11 @@ const Rates = ({ currentPrices, editPricing }) => {
                                 id={day.id}
                                 onChange={handlePricingEdit}
                                 fontSize="large"
-                                inputProps={{ min: 0, max: 1000 }}
+                                inputProps={{ min: -9999, max: 9999 }}
                                 label={day.name}
                                 disabled={currentPrices.isFixedPrice && day.id.replace(/[0-9]/, '') !== 'custom' ? true : false}
+                                error={alert[day.id].error}
+                                helperText={alert[day.id].message}
                             />
                         </Grid>
                     </Grid>

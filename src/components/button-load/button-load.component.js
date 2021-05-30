@@ -7,6 +7,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import { loadState, auth, firestore } from '../../firebase/firebase.utils';
 import { loadState as loadStateAction } from '../../actions/actionCreators';
 
@@ -18,6 +20,11 @@ const LoadButton = ({ loadStateAction }) => {
     const [open, setOpen] = React.useState(false);
     const [data, setData] = React.useState('');
     const [dataList, setDataList] = React.useState([])
+    const [alert, setAlert] = React.useState({ error: false, message: '', severity: 'info' });
+
+    const handleAlertClose = (event, reason) => {
+        setAlert({ ...alert,error: false}, setAlert({...alert, message:'', severity:'info'}));
+    };
 
     const handleClose = () => {
         setOpen(false);
@@ -40,7 +47,7 @@ const LoadButton = ({ loadStateAction }) => {
             setDataList(tempData)
             setOpen(true);
         } else {
-            setOpen(false);
+            setAlert({ error: true, message: 'Please login to load your data', severity: 'error' });
         }
 
     }
@@ -98,6 +105,20 @@ const LoadButton = ({ loadStateAction }) => {
             </Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar
+                open={alert.error}
+                autoHideDuration={3000}
+                onClose={handleAlertClose}
+            >
+                <MuiAlert
+                    onClose={handleAlertClose}
+                    elevation={6}
+                    variant="filled"
+                    severity={alert.severity}
+                >
+                    {alert.message}
+                </MuiAlert>
+            </Snackbar>
         </React.Fragment>
     )
 }

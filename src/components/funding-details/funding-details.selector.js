@@ -21,7 +21,7 @@ export const selectSuggestedWeeklyCost = createSelector(
 
 export const selectSuggestWeeklyHours = createSelector(
     [selectSuggestedWeeklyCost, selectCurrentPrices],
-    (weeklyCost, prices) => weeklyCost / prices.morning
+    (weeklyCost, prices) => (weeklyCost / prices.morning).toFixed(2)
 )
 
 export const selectAllocatedCost = createSelector(

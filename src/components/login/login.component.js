@@ -9,10 +9,12 @@ import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 export default function Login() {
     const [open, setOpen] = React.useState(false);
-    const [detail, setDetail] = React.useState({email:'', password:''})
+    const [detail, setDetail] = React.useState({ email: '', password: '' })
+    const [alert, setAlert] = React.useState({error:false, message:''})
 
     const handleClickOpen = () => {
         setOpen(true);
+        setAlert({error:false, message:''})
     };
 
     const handleClose = () => {
@@ -20,12 +22,15 @@ export default function Login() {
     };
 
     const googleLogin = async () => {
-        setOpen(false);
-        await signInWithGoogle();
+        try {
+            setOpen(false);
+            await signInWithGoogle();       
+        } catch (error) {
+            console.log(error)
+        }        
     }
-
     const handleChange = (e) => {
-        setDetail({...detail, [e.target.name]: e.target.value})
+        setDetail({ ...detail, [e.target.name]: e.target.value })
     }
 
     const emailLogin = async () => {
@@ -37,8 +42,12 @@ export default function Login() {
                 password: ''
             });
             setOpen(false);
+            setAlert(false);
         } catch (error) {
-            console.log(error)
+            setAlert({
+                error:true,
+                message:'Invalid email or password'
+            })
         }
     };
 
@@ -62,6 +71,8 @@ export default function Login() {
                         type="email"
                         onChange={handleChange}
                         fullWidth
+                        error={alert.error}
+                        helperText={alert.message}
                     />
                     <TextField
                         margin="dense"
@@ -70,6 +81,8 @@ export default function Login() {
                         name='password'
                         onChange={handleChange}
                         fullWidth
+                        error={alert.error}
+                        helperText={alert.message}
                     />
                 </DialogContent>
                 <DialogActions>

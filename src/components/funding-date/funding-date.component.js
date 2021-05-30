@@ -3,13 +3,42 @@ import { connect } from 'react-redux'
 import { Grid, TextField } from '@material-ui/core'
 
 import { editDate } from '../../actions/actionCreators'
-import { dateToCalendar } from '../../utilities/utilities'
+import { dateToCalendar, stringToDate } from '../../utilities/utilities'
 import { selectFundedDays } from '../funding-date/funding-date.selector'
 
 const FundingDate = ({ fundingEndDate, fundedDays, fundingStartDate, editDate }) => {
-    const handleDateChange = (e) => {
-        editDate(e.target.name, e.target.value)
+    const [alert, setAlert] = React.useState({ error: false, message: '' })
+
+    const handleStartDateChange = (e) => {
+        if (stringToDate(e.target.value) > fundingEndDate) {
+            setAlert({
+                error:true,
+                message:'The start date cannot be later than end date.'
+            })
+        } else {
+            editDate(e.target.name, e.target.value)
+            setAlert({
+                error:false,
+                message:''
+            })
+        }
     }
+
+    const handleEndDateChange = (e) => {
+        if (stringToDate(e.target.value) < fundingStartDate) {
+            setAlert({
+                error:true,
+                message:'The start date cannot be later than end date.'
+            })
+        } else {
+            editDate(e.target.name, e.target.value)
+            setAlert({
+                error:false,
+                message:''
+            })
+        }
+    }
+
     return (
         <React.Fragment>
             <Grid item xs={12} md={4}>
@@ -20,11 +49,13 @@ const FundingDate = ({ fundingEndDate, fundedDays, fundingStartDate, editDate })
                             type="date"
                             name='fundingStartDate'
                             value={dateToCalendar(fundingStartDate)}
-                            onChange={handleDateChange}
+                            onChange={handleStartDateChange}
                             InputLabelProps={{
                                 shrink: true,
                             }}
                             fullWidth
+                            error={alert.error}
+                            helperText={alert.message}
                         />
                     </Grid>
                 </Grid>
@@ -38,11 +69,13 @@ const FundingDate = ({ fundingEndDate, fundedDays, fundingStartDate, editDate })
                             type="date"
                             name='fundingEndDate'
                             value={dateToCalendar(fundingEndDate)}
-                            onChange={handleDateChange}
+                            onChange={handleEndDateChange}
                             InputLabelProps={{
                                 shrink: true,
                             }}
                             fullWidth
+                            error={alert.error}
+                            helperText={alert.message}                            
                         />
                     </Grid>
                 </Grid>

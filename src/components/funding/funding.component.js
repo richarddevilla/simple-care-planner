@@ -14,26 +14,32 @@ import FundingDate from '../funding-date/funding-date.component'
 const Funding = ({ fundingMoney, editFunding }) => {
     const classes = useStyles();
 
+    const handleChange = (e) => {
+        if (e.target.value < 1000000 && e.target.value > -1 ) {
+            editFunding(e.target.value)
+        }
+        
+    }
     return (
         <Grid item className={classes.paperContainer} >
             <Paper className={classes.paper} elevation={5} >
-            <Typography className={classes.siteColor} variant='h5'><Box pl={4} mb={2}>Add Funding Details</Box></Typography>
+                <Typography className={classes.siteColor} variant='h5'><Box pl={4} mb={2}>Add Funding Details</Box></Typography>
                 <Grid item container spacing={1} alignItems="center" justify='center'>
                     <Grid item xs={12} md={12}>
                         <Grid item container spacing={1} alignItems="center" justify='center'>
-                                <AttachMoneyRoundedIcon fontSize="large" color='disabled' />
-                                <Box width="40%" minWidth='200px' maxWidth='400px' pb={2}>
+                            <AttachMoneyRoundedIcon fontSize="large" color='disabled' />
+                            <Box width="40%" minWidth='200px' maxWidth='400px' pb={2}>
                                 <TextField
                                     type='number'
                                     fontSize="large"
                                     label="Funding"
                                     value={fundingMoney}
-                                    inputProps={{ min: 0, max: 10000000 }}
-                                    onChange={(e) => editFunding(e.target.value)}
+                                    inputProps={{ min: 0, max: 1000000 }}
+                                    onChange={handleChange}
                                     fullWidth
                                 />
-                                </Box>
-                                
+                            </Box>
+
                         </Grid>
                     </Grid>
                     <FundingDate />
