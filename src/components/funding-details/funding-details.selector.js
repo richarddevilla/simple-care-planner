@@ -15,7 +15,7 @@ export const selectFundedDays = createSelector(
 export const selectSuggestedWeeklyCost = createSelector(
     [selectFundingStart, selectFundingEnd, selectFundingMoney],
     (start, end, money) => (
-        (money / ((end - start) / 8640000)).toFixed(2)
+        (money / ((end - start) / 86400000 /7)).toFixed(2)
     )
 )
 

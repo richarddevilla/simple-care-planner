@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {
     Grid,
     Paper,
+    Box,
     TextField,
 } from '@material-ui/core'
 import AttachMoneyRoundedIcon from '@material-ui/icons/AttachMoneyRounded'
@@ -37,9 +38,9 @@ const Rates = ({ currentPrices, editPricing }) => {
     const handlePricingEdit = (e) => {
         if (e.target.value < 10000 && e.target.value > -10000) {
             editPricing(e.target.id, e.target.value)
-            setAlert({...alert, [e.target.id]:{ error: false, message: '' }})
+            setAlert({ ...alert, [e.target.id]: { error: false, message: '' } })
         } else {
-            setAlert({...alert, [e.target.id]:{ error: true, message: 'Rate should be between -9999 to 9999' }})
+            setAlert({ ...alert, [e.target.id]: { error: true, message: 'Rate should be between -9999 to 9999' } })
         }
 
     }
@@ -51,21 +52,24 @@ const Rates = ({ currentPrices, editPricing }) => {
                         <Grid item>
                             <AttachMoneyRoundedIcon fontSize="small" color='disabled' />
                         </Grid>
-                        <Grid item>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                value={currentPrices[day.id]}
-                                type='number'
-                                id={day.id}
-                                onChange={handlePricingEdit}
-                                fontSize="large"
-                                inputProps={{ min: -9999, max: 9999 }}
-                                label={day.name}
-                                disabled={currentPrices.isFixedPrice && day.id.replace(/[0-9]/, '') !== 'custom' ? true : false}
-                                error={alert[day.id].error}
-                                helperText={alert[day.id].message}
-                            />
-                        </Grid>
+                        <Box width='75%' m={1}>
+                            <Grid item>
+                                <TextField
+                                    InputLabelProps={{ shrink: true }}
+                                    value={currentPrices[day.id]}
+                                    type='number'
+                                    id={day.id}
+                                    onChange={handlePricingEdit}
+                                    fontSize="large"
+                                    inputProps={{ min: -9999, max: 9999 }}
+                                    label={day.name}
+                                    disabled={currentPrices.isFixedPrice && day.id.replace(/[0-9]/, '') !== 'custom' ? true : false}
+                                    error={alert[day.id].error}
+                                    helperText={alert[day.id].message}
+                                    fullWidth
+                                />
+                            </Grid>
+                        </Box>
                     </Grid>
                 </Grid>
             )
